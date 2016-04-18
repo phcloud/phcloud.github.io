@@ -1,0 +1,647 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Gulp Css fontspider," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="首先简单介绍一下fontspider的原理
+爬行本地 html 文档，分析所有 css 语句
+记录@font-face语句声明的字体，并且记录使用该字体的 css 选择器
+通过 css 选择器的规则查找当前 html 文档的节点，记录节点上的文本
+找到字体文件并删除没被使用的字符
+编码成跨平台使用的字体格式
+
+下面进去实际操作1. 全局安装 gulp：
+$ npm install –global">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gulp+fontspider实现按需压缩中文字体压缩">
+<meta property="og:url" content="http://yoursite.com/2016/03/23/font_spider/index.html">
+<meta property="og:site_name" content="Point Halo">
+<meta property="og:description" content="首先简单介绍一下fontspider的原理
+爬行本地 html 文档，分析所有 css 语句
+记录@font-face语句声明的字体，并且记录使用该字体的 css 选择器
+通过 css 选择器的规则查找当前 html 文档的节点，记录节点上的文本
+找到字体文件并删除没被使用的字符
+编码成跨平台使用的字体格式
+
+下面进去实际操作1. 全局安装 gulp：
+$ npm install –global">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044668-8b786f2a0151249a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044668-33827efef6a24977.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044668-89761f194b303c4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044668-d915cfbbb2f8ac79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044668-e101b0a3ab267da7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044668-1f7cbabec2965bf4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044668-d923cc686a7920bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044668-af427d7677c1e8ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-04-18T14:10:08.858Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gulp+fontspider实现按需压缩中文字体压缩">
+<meta name="twitter:description" content="首先简单介绍一下fontspider的原理
+爬行本地 html 文档，分析所有 css 语句
+记录@font-face语句声明的字体，并且记录使用该字体的 css 选择器
+通过 css 选择器的规则查找当前 html 文档的节点，记录节点上的文本
+找到字体文件并删除没被使用的字符
+编码成跨平台使用的字体格式
+
+下面进去实际操作1. 全局安装 gulp：
+$ npm install –global">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1044668-8b786f2a0151249a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Gulp+fontspider实现按需压缩中文字体压缩 | Point Halo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Point Halo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Gulp+fontspider实现按需压缩中文字体压缩
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-23T12:00:00+08:00" content="2016-03-23">
+              2016-03-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Gulp/" itemprop="url" rel="index">
+                    <span itemprop="name">Gulp</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="首先简单介绍一下fontspider的原理"><a href="#首先简单介绍一下fontspider的原理" class="headerlink" title="首先简单介绍一下fontspider的原理"></a>首先简单介绍一下fontspider的原理</h3><ol>
+<li>爬行本地 html 文档，分析所有 css 语句</li>
+<li>记录@font-face<br>语句声明的字体，并且记录使用该字体的 css 选择器</li>
+<li>通过 css 选择器的规则查找当前 html 文档的节点，记录节点上的文本</li>
+<li>找到字体文件并删除没被使用的字符</li>
+<li>编码成跨平台使用的字体格式</li>
+</ol>
+<h3 id="下面进去实际操作"><a href="#下面进去实际操作" class="headerlink" title="下面进去实际操作"></a>下面进去实际操作</h3><h5 id="1-全局安装-gulp："><a href="#1-全局安装-gulp：" class="headerlink" title="1. 全局安装 gulp："></a>1. 全局安装 gulp：</h5><blockquote>
+<p>$ npm install –global gulp</p>
+</blockquote>
+<h5 id="2-进入项目根目录，作为项目的开发依赖（devDependencies）安装："><a href="#2-进入项目根目录，作为项目的开发依赖（devDependencies）安装：" class="headerlink" title="2. 进入项目根目录，作为项目的开发依赖（devDependencies）安装："></a>2. 进入项目根目录，作为项目的开发依赖（devDependencies）安装：</h5><blockquote>
+<p>$ npm install –save-dev gulp</p>
+</blockquote>
+<h5 id="3-新建package-json"><a href="#3-新建package-json" class="headerlink" title="3. 新建package.json"></a>3. 新建package.json</h5><blockquote>
+<p>npm init</p>
+</blockquote>
+<p>然后开始填写信息</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-8b786f2a0151249a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>如果不知道怎么填写可以</p>
+<blockquote>
+<p>npm help package.json</p>
+</blockquote>
+<h5 id="4、开始安装所要使用的依赖的插件"><a href="#4、开始安装所要使用的依赖的插件" class="headerlink" title="4、开始安装所要使用的依赖的插件"></a>4、开始安装所要使用的依赖的插件</h5><p>例如 安装gulp-cache</p>
+<blockquote>
+<p>npm install gulp-cache –save-dev</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-33827efef6a24977.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>会看到package.json里面也自动新增了依赖项</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-89761f194b303c4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>继续安装其他需要用到的插件……此处省略</p>
+<p>依赖插件都安装好之后，我的package.json变成了这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">      &quot;name&quot;: &quot;font_spider_demo&quot;,</span><br><span class="line">      &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">      &quot;description&quot;: &quot;zip web-font&quot;,</span><br><span class="line">      &quot;main&quot;: &quot;gulpfile.js&quot;,</span><br><span class="line">      &quot;dependencies&quot;: &#123;</span><br><span class="line">      &quot;gulp&quot;: &quot;^3.9.1&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">  &quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;del&quot;: &quot;^2.2.0&quot;,</span><br><span class="line">    &quot;gulp-cache&quot;: &quot;^0.4.3&quot;,</span><br><span class="line">    &quot;gulp-font-spider&quot;: &quot;^0.2.0&quot;,</span><br><span class="line">    &quot;gulp-minify-css&quot;: &quot;^1.2.4&quot;,</span><br><span class="line">    &quot;gulp-notify&quot;: &quot;^2.2.0&quot;,</span><br><span class="line">    &quot;gulp-rename&quot;: &quot;^1.2.2&quot;,</span><br><span class="line">    &quot;gulp-tinypng&quot;: &quot;^1.0.2&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;font&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [</span><br><span class="line">    &quot;webfont&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;author&quot;: &quot;point_halo&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;UNLICENSED&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="5、在项目根目录下创建一个名为-gulpfile-js-的文件："><a href="#5、在项目根目录下创建一个名为-gulpfile-js-的文件：" class="headerlink" title="5、在项目根目录下创建一个名为 gulpfile.js 的文件："></a>5、在项目根目录下创建一个名为 gulpfile.js 的文件：</h5><p>开始写任务，新建gulpfile.js（说明：gulpfile.js是gulp项目的配置文件）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//导入工具包 require(&apos;node_modules里对应模块&apos;)</span><br><span class="line">var gulp = require(&apos;gulp&apos;), //本地安装gulp所用到的地方</span><br><span class="line">    less = require(&apos;gulp-less&apos;);</span><br><span class="line"></span><br><span class="line">//定义一个testLess任务（自定义任务名称）</span><br><span class="line">gulp.task(&apos;testLess&apos;, function () &#123;</span><br><span class="line">    gulp.src(&apos;src/less/index.less&apos;) //该任务针对的文件</span><br><span class="line">        .pipe(less()) //该任务调用的模块</span><br><span class="line">        .pipe(gulp.dest(&apos;src/css&apos;)); //将会在src/css下生成index.css</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gulp.task(&apos;default&apos;,[&apos;testLess&apos;, &apos;elseTask&apos;]); //定义默认任务</span><br><span class="line"></span><br><span class="line">//gulp.task(name[, deps], fn) 定义任务  name：任务名称 deps：依赖任务名称 fn：回调函数</span><br><span class="line">//gulp.src(globs[, options]) 执行任务处理的文件  globs：处理的文件路径(字符串或者字符串数组)</span><br><span class="line">//gulp.dest(path[, options]) 处理完后文件生成路径</span><br></pre></td></tr></table></figure></p>
+<h3 id="附上我最终的gulpfile-js"><a href="#附上我最终的gulpfile-js" class="headerlink" title="附上我最终的gulpfile.js"></a>附上我最终的gulpfile.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">//引入组件</span><br><span class="line">var gulp = require(&apos;gulp&apos;);</span><br><span class="line">  minifycss = require(&apos;gulp-minify-css&apos;),</span><br><span class="line">  rename = require(&apos;gulp-rename&apos;),</span><br><span class="line">  tinypng = require(&apos;gulp-tinypng&apos;),</span><br><span class="line">  notify = require(&apos;gulp-notify&apos;),</span><br><span class="line">  cache = require(&apos;gulp-cache&apos;),</span><br><span class="line">  fontSpider=require(&apos;gulp-font-spider&apos;),</span><br><span class="line">  del = require(&apos;del&apos;);</span><br><span class="line">gulp.task(&apos;clean&apos;, function(cb) &#123;</span><br><span class="line">  del([&apos;dist/css&apos;, &apos;dist/assets/js&apos;, &apos;dist/assets/img&apos;], cb);</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;cssmin&apos;, function() &#123; //执行完clean之后再执行cssmin</span><br><span class="line">  gulp.src(&apos;*.css&apos;)</span><br><span class="line">    .pipe(rename(&#123;</span><br><span class="line">      suffix: &apos;.min&apos;</span><br><span class="line">    &#125;)) //suffix后缀名 prefix前缀名 extname文件格式</span><br><span class="line">    .pipe(minifycss())</span><br><span class="line">    .pipe(gulp.dest(&apos;dist&apos;))</span><br><span class="line">    .pipe(notify(&#123;</span><br><span class="line">      message: &apos;css compress done&apos;</span><br><span class="line">    &#125;));</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;tinypng&apos;, function() &#123;</span><br><span class="line">  gulp.src(&apos;*.jpg&apos;)</span><br><span class="line">    .pipe(cache(tinypng(&apos;HYalYWQL5nNm985-wSaZYAX-3lMZVCRO&apos;)))//调用tinypng的api-key</span><br><span class="line">    .pipe(gulp.dest(&apos;dist/img&apos;))</span><br><span class="line">    .pipe(notify(&#123;</span><br><span class="line">      message: &apos;image compress done&apos;</span><br><span class="line">    &#125;));</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;testfont&apos;,function () &#123;</span><br><span class="line">  gulp.src(&apos;*.html&apos;)</span><br><span class="line">  .pipe(fontSpider())</span><br><span class="line">  .pipe(notify(&#123;</span><br><span class="line">    message: &apos;font compress done&apos;</span><br><span class="line">  &#125;));</span><br><span class="line">&#125;);</span><br><span class="line">//默认的任务数组，运行gulp的时候 与运行 gulp default是同样效果</span><br><span class="line">gulp.task(&apos;default&apos;, [&apos;clean&apos;, &apos;cssmin&apos;, &apos;tinypng&apos;,&apos;testfont&apos;], function() &#123;&#125;);</span><br><span class="line">gulp.task(&apos;watch&apos;, function() &#123;</span><br><span class="line">  //Watch css files</span><br><span class="line">  gulp.watch(&apos;*.css&apos;, [&apos;cssmin&apos;]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="我们现在添加一个html文件引用font的来测试一下"><a href="#我们现在添加一个html文件引用font的来测试一下" class="headerlink" title="我们现在添加一个html文件引用font的来测试一下"></a>我们现在添加一个html文件引用font的来测试一下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;utf-8&quot; /&gt;</span><br><span class="line">  &lt;title&gt;Fonttest&lt;/title&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=0,minimum-scale=1,maximum-scale=1,user-scalable=no&quot;&gt;</span><br><span class="line">  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;</span><br><span class="line">  &lt;meta name=&quot;keywords&quot; content=&quot;&quot; /&gt;</span><br><span class="line">  &lt;meta name=&quot;description&quot; content=&quot;&quot; /&gt;</span><br><span class="line">  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;./test.css&quot; /&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;!-- 页面主体内容 开始 --&gt;</span><br><span class="line">  &lt;div class=&quot;container&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;main&quot;&gt;</span><br><span class="line">          &lt;span class=&quot;font_1&quot;&gt;我是一号字体&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span&gt;新添加的&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_2&quot;&gt;随便添加一点文字测试用的&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_2&quot;&gt;看看就好而还好有你吗&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_1&quot;&gt;贵夫人身体依然过以后突然一天突然有人同意&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_2&quot;&gt;的撒发生发的萨芬&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_2&quot;&gt;发热贴同仁堂&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_1&quot;&gt;多项目的时候怎么办&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;!-- 页面主体内容 结束 --&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="css文件"><a href="#css文件" class="headerlink" title="css文件"></a>css文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@charset &quot;UTF-8&quot;;</span><br><span class="line">html&#123;font-size: 20px;&#125;</span><br><span class="line">@font-face &#123;</span><br><span class="line">      font-family:&apos;test1&apos;;</span><br><span class="line">      src:url(&apos;./test2.TTF&apos;) format(&apos;truetype&apos;);</span><br><span class="line">      font-weight: normal;</span><br><span class="line">      font-style: normal;</span><br><span class="line">&#125;</span><br><span class="line">@font-face &#123;</span><br><span class="line">      font-family:&apos;test2&apos;;</span><br><span class="line">      src:url(&apos;./test1.TTF&apos;) format(&apos;truetype&apos;);</span><br><span class="line">      font-weight: normal;</span><br><span class="line">      font-style: normal;</span><br><span class="line">&#125;</span><br><span class="line">@font-face &#123;</span><br><span class="line">      font-family:&apos;test3&apos;;</span><br><span class="line">      src:url(&apos;./test3.ttf&apos;) format(&apos;truetype&apos;);</span><br><span class="line">      font-weight: normal;</span><br><span class="line">      font-style: normal;</span><br><span class="line">&#125;</span><br><span class="line">.main&#123;</span><br><span class="line">  font-size:1rem;</span><br><span class="line">  color: #61B3E6;</span><br><span class="line">&#125;</span><br><span class="line">.font_1&#123;</span><br><span class="line">  font-size:1rem;</span><br><span class="line">  font-family: test1;</span><br><span class="line">  color: #61B3E6;</span><br><span class="line">&#125;</span><br><span class="line">.font_2&#123;</span><br><span class="line">  font-size:1rem;</span><br><span class="line">  font-family: test2;</span><br><span class="line">  color:#61B3E6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="注意html页面引用的css必须是相对路径-不能使用绝对路径-否则fontspider不能识别"><a href="#注意html页面引用的css必须是相对路径-不能使用绝对路径-否则fontspider不能识别" class="headerlink" title="注意html页面引用的css必须是相对路径 不能使用绝对路径 否则fontspider不能识别"></a>注意html页面引用的css必须是相对路径 不能使用绝对路径 否则fontspider不能识别</h5><p><img src="http://upload-images.jianshu.io/upload_images/1044668-d915cfbbb2f8ac79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>开始运行gulp任务</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-e101b0a3ab267da7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>出错了</p>
+<blockquote>
+<p>htmlFiles.map is not a funtion</p>
+</blockquote>
+<p>这个是gulp-font-spider插件本身的一点小错误<br>github上有相对应的issue，但作者好像一直没有进行修正<br><a href="https://github.com/unliu/gulp-font-spider/commit/61f78eead0092d2e6f499e3bccf335f383d90aa2" target="_blank" rel="external">https://github.com/unliu/gulp-font-spider/commit/61f78eead0092d2e6f499e3bccf335f383d90aa2</a><br>要想正常使用 我们需要修改一下它的源码，\node_modules\gulp-font-spider\index.js<br>把file改为file.path</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-1f7cbabec2965bf4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>我们再次运行Gulp命令</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-d923cc686a7920bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>没有报错了，css已成功压缩，字体压缩也已成功<br>再来看一下项目根目录</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-af427d7677c1e8ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<h3 id="字体已经压缩成功了，而原来的字体源文件，则是已到了-font-spider文件夹里面保存"><a href="#字体已经压缩成功了，而原来的字体源文件，则是已到了-font-spider文件夹里面保存" class="headerlink" title="字体已经压缩成功了，而原来的字体源文件，则是已到了.font-spider文件夹里面保存"></a>字体已经压缩成功了，而原来的字体源文件，则是已到了.font-spider文件夹里面保存</h3><h3 id="可以看到字体资源大小明显在可接受范围内了"><a href="#可以看到字体资源大小明显在可接受范围内了" class="headerlink" title="可以看到字体资源大小明显在可接受范围内了"></a>可以看到字体资源大小明显在可接受范围内了</h3><h3 id="压缩后的min-css也在dist文件夹内安安静静躺着"><a href="#压缩后的min-css也在dist文件夹内安安静静躺着" class="headerlink" title="压缩后的min-css也在dist文件夹内安安静静躺着"></a>压缩后的min-css也在dist文件夹内安安静静躺着</h3><h3 id="好了-这样我们就再也不怕在移动端引入中文字体了"><a href="#好了-这样我们就再也不怕在移动端引入中文字体了" class="headerlink" title="好了 这样我们就再也不怕在移动端引入中文字体了"></a>好了 这样我们就再也不怕在移动端引入中文字体了</h3><p>参考文章：<br><a href="http://font-spider.org/" target="_blank" rel="external">http://font-spider.org/</a><br><a href="http://www.gulpjs.com.cn/docs/api/" target="_blank" rel="external">http://www.gulpjs.com.cn/docs/api/</a><br><a href="http://www.ydcss.com/archives/18" target="_blank" rel="external">http://www.ydcss.com/archives/18</a><br><a href="https://segmentfault.com/a/1190000000372547" target="_blank" rel="external">https://segmentfault.com/a/1190000000372547</a></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Gulp-Css-fontspider/" rel="tag">#Gulp Css fontspider</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/26/typeOf&instanceOf/" rel="next" title="typeOf、instanceOf、valueOf区别">
+                <i class="fa fa-chevron-left"></i> typeOf、instanceOf、valueOf区别
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/16/Javascript_find/" rel="prev" title="字符串检索相关的操作总结">
+                字符串检索相关的操作总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/13868548?v=3&s=460"
+               alt="Point Halo" />
+          <p class="site-author-name" itemprop="name">Point Halo</p>
+          <p class="site-description motion-element" itemprop="description">Point Halo's Blog</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先简单介绍一下fontspider的原理"><span class="nav-number">1.</span> <span class="nav-text">首先简单介绍一下fontspider的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面进去实际操作"><span class="nav-number">2.</span> <span class="nav-text">下面进去实际操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-全局安装-gulp："><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 全局安装 gulp：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-进入项目根目录，作为项目的开发依赖（devDependencies）安装："><span class="nav-number">2.0.2.</span> <span class="nav-text">2. 进入项目根目录，作为项目的开发依赖（devDependencies）安装：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-新建package-json"><span class="nav-number">2.0.3.</span> <span class="nav-text">3. 新建package.json</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、开始安装所要使用的依赖的插件"><span class="nav-number">2.0.4.</span> <span class="nav-text">4、开始安装所要使用的依赖的插件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、在项目根目录下创建一个名为-gulpfile-js-的文件："><span class="nav-number">2.0.5.</span> <span class="nav-text">5、在项目根目录下创建一个名为 gulpfile.js 的文件：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附上我最终的gulpfile-js"><span class="nav-number">3.</span> <span class="nav-text">附上我最终的gulpfile.js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#我们现在添加一个html文件引用font的来测试一下"><span class="nav-number">3.1.</span> <span class="nav-text">我们现在添加一个html文件引用font的来测试一下</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css文件"><span class="nav-number">4.</span> <span class="nav-text">css文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注意html页面引用的css必须是相对路径-不能使用绝对路径-否则fontspider不能识别"><span class="nav-number">4.0.1.</span> <span class="nav-text">注意html页面引用的css必须是相对路径 不能使用绝对路径 否则fontspider不能识别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字体已经压缩成功了，而原来的字体源文件，则是已到了-font-spider文件夹里面保存"><span class="nav-number">5.</span> <span class="nav-text">字体已经压缩成功了，而原来的字体源文件，则是已到了.font-spider文件夹里面保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以看到字体资源大小明显在可接受范围内了"><span class="nav-number">6.</span> <span class="nav-text">可以看到字体资源大小明显在可接受范围内了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩后的min-css也在dist文件夹内安安静静躺着"><span class="nav-number">7.</span> <span class="nav-text">压缩后的min-css也在dist文件夹内安安静静躺着</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#好了-这样我们就再也不怕在移动端引入中文字体了"><span class="nav-number">8.</span> <span class="nav-text">好了 这样我们就再也不怕在移动端引入中文字体了</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Point Halo</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

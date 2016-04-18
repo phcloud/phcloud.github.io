@@ -1,0 +1,676 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="css flex box-flex," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="容器的属性1.flex-direction2.flex-wrap3.flex-flow4.justify-content5.align-items6.align-content
+一、flex-direction属性决定主轴的方向（即项目的排列方向）。
+flex-direction: row | row-reverse | column | column-reverse;
+
+二、flex-wrap属">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flex学习笔记">
+<meta property="og:url" content="http://yoursite.com/2016/02/10/flex/index.html">
+<meta property="og:site_name" content="Point Halo">
+<meta property="og:description" content="容器的属性1.flex-direction2.flex-wrap3.flex-flow4.justify-content5.align-items6.align-content
+一、flex-direction属性决定主轴的方向（即项目的排列方向）。
+flex-direction: row | row-reverse | column | column-reverse;
+
+二、flex-wrap属">
+<meta property="og:updated_time" content="2016-04-18T14:13:33.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="flex学习笔记">
+<meta name="twitter:description" content="容器的属性1.flex-direction2.flex-wrap3.flex-flow4.justify-content5.align-items6.align-content
+一、flex-direction属性决定主轴的方向（即项目的排列方向）。
+flex-direction: row | row-reverse | column | column-reverse;
+
+二、flex-wrap属">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> flex学习笔记 | Point Halo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Point Halo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                flex学习笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-10T12:00:00+08:00" content="2016-02-10">
+              2016-02-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="容器的属性"><a href="#容器的属性" class="headerlink" title="容器的属性"></a>容器的属性</h2><p>1.flex-direction<br>2.flex-wrap<br>3.flex-flow<br>4.justify-content<br>5.align-items<br>6.align-content</p>
+<h4 id="一、flex-direction属性决定主轴的方向（即项目的排列方向）。"><a href="#一、flex-direction属性决定主轴的方向（即项目的排列方向）。" class="headerlink" title="一、flex-direction属性决定主轴的方向（即项目的排列方向）。"></a>一、flex-direction属性决定主轴的方向（即项目的排列方向）。</h4><blockquote>
+<p>flex-direction: row | row-reverse | column | column-reverse;</p>
+</blockquote>
+<h4 id="二、flex-wrap属性定义，如果一条轴线排不下，如何换行。"><a href="#二、flex-wrap属性定义，如果一条轴线排不下，如何换行。" class="headerlink" title="二、flex-wrap属性定义，如果一条轴线排不下，如何换行。"></a>二、flex-wrap属性定义，如果一条轴线排不下，如何换行。</h4><blockquote>
+<p>flex-wrap: nowrap | wrap | wrap-reverse;</p>
+</blockquote>
+<h4 id="三、flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为"><a href="#三、flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为" class="headerlink" title="三、flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为"></a>三、flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为</h4><blockquote>
+<p>row nowrap。</p>
+</blockquote>
+<h4 id="四、justify-content属性定义了项目在主轴上的对齐方式，"><a href="#四、justify-content属性定义了项目在主轴上的对齐方式，" class="headerlink" title="四、justify-content属性定义了项目在主轴上的对齐方式，"></a>四、justify-content属性定义了项目在主轴上的对齐方式，</h4><p>可以理解为横轴。</p>
+<blockquote>
+<p>justify-content: flex-start | flex-end | center | space-between | space-around;</p>
+</blockquote>
+<ul>
+<li>flex-start（默认值）：左对齐</li>
+<li>flex-end：右对齐</li>
+<li>center： 居中</li>
+<li>space-between：两端对齐，项目之间的间隔都相等。</li>
+<li>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</li>
+</ul>
+<h4 id="五、align-items属性定义项目在交叉轴上如何对齐，可以理解为竖轴"><a href="#五、align-items属性定义项目在交叉轴上如何对齐，可以理解为竖轴" class="headerlink" title="五、align-items属性定义项目在交叉轴上如何对齐，可以理解为竖轴"></a>五、align-items属性定义项目在交叉轴上如何对齐，可以理解为竖轴</h4><blockquote>
+<p>align-items: flex-start | flex-end | center | baseline | stretch;</p>
+</blockquote>
+<ul>
+<li><p>flex-start：交叉轴的起点对齐。</p>
+</li>
+<li><p>flex-end：交叉轴的终点对齐。</p>
+</li>
+<li><p>center：交叉轴的中点对齐。</p>
+</li>
+<li><p>baseline: 项目的第一行文字的基线对齐。</p>
+</li>
+<li><p>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</p>
+</li>
+</ul>
+<h4 id="六、align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。"><a href="#六、align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。" class="headerlink" title="六、align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。"></a>六、align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</h4><blockquote>
+<p>align-content: flex-start | flex-end | center | space-between | stretch | space-around;</p>
+</blockquote>
+<ul>
+<li><p>flex-start：与交叉轴的起点对齐。</p>
+</li>
+<li><p>flex-end：与交叉轴的终点对齐。</p>
+</li>
+<li><p>center：与交叉轴的中点对齐。</p>
+</li>
+<li><p>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</p>
+</li>
+<li><p>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</p>
+</li>
+<li><p>stretch（默认值）：轴线占满整个交叉轴。</p>
+</li>
+</ul>
+<hr>
+<h2 id="项目的属性"><a href="#项目的属性" class="headerlink" title="项目的属性"></a>项目的属性</h2><ul>
+<li><h5 id="order-属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。"><a href="#order-属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。" class="headerlink" title="order:属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。"></a>order:属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</h5></li>
+</ul>
+<blockquote>
+<p>order: <integer>;</integer></p>
+</blockquote>
+<ul>
+<li><h5 id="flex-grow-属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。"><a href="#flex-grow-属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。" class="headerlink" title="flex-grow:属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。"></a>flex-grow:属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。</h5></li>
+</ul>
+<blockquote>
+<p>flex-grow: <number>; /<em> default 0 </em>/</number></p>
+</blockquote>
+<ul>
+<li><h5 id="flex-shrink-属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。"><a href="#flex-shrink-属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。" class="headerlink" title="flex-shrink:属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。"></a>flex-shrink:属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</h5></li>
+</ul>
+<blockquote>
+<p>flex-shrink: <number>; /<em> default 1 </em>/</number></p>
+</blockquote>
+<ul>
+<li><h5 id="flex-basis-属性定义了在分配多余空间之前，项目占据的主轴空间（main-size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。"><a href="#flex-basis-属性定义了在分配多余空间之前，项目占据的主轴空间（main-size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。" class="headerlink" title="flex-basis:属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。"></a>flex-basis:属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</h5></li>
+</ul>
+<blockquote>
+<p>flex-basis: <length> | auto; /<em> default auto </em>/</length></p>
+</blockquote>
+<ul>
+<li><h5 id="flex-属性是flex-grow-flex-shrink-和-flex-basis的简写，默认值为0-1-auto。后两个属性可选。建议优先使用这个属性"><a href="#flex-属性是flex-grow-flex-shrink-和-flex-basis的简写，默认值为0-1-auto。后两个属性可选。建议优先使用这个属性" class="headerlink" title="flex:属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。建议优先使用这个属性"></a>flex:属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。建议优先使用这个属性</h5></li>
+</ul>
+<blockquote>
+<p>flex: none | [ &lt;’flex-grow’&gt; &lt;’flex-shrink’&gt;? || &lt;’flex-basis’&gt; ]</p>
+</blockquote>
+<ul>
+<li><h5 id="align-self-属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。"><a href="#align-self-属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。" class="headerlink" title="align-self:属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。"></a>align-self:属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</h5></li>
+</ul>
+<blockquote>
+<p>align-self: auto | flex-start | flex-end | center | baseline | stretch;</p>
+</blockquote>
+<h3 id="最后flex学习强烈推荐阮一峰老师的教程，把这篇文章举到的例子，骰子的布局好好想一遍，实现一遍，基本flex就掌握了"><a href="#最后flex学习强烈推荐阮一峰老师的教程，把这篇文章举到的例子，骰子的布局好好想一遍，实现一遍，基本flex就掌握了" class="headerlink" title="最后flex学习强烈推荐阮一峰老师的教程，把这篇文章举到的例子，骰子的布局好好想一遍，实现一遍，基本flex就掌握了"></a>最后flex学习强烈推荐阮一峰老师的教程，把这篇文章举到的例子，骰子的布局好好想一遍，实现一遍，基本flex就掌握了</h3><blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a><br>深入浅出，简单明了</p>
+</blockquote>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css-flex-box-flex/" rel="tag">#css flex box-flex</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/30/git/" rel="next" title="我自己常用到的git命令">
+                <i class="fa fa-chevron-left"></i> 我自己常用到的git命令
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/26/typeOf&instanceOf/" rel="prev" title="typeOf、instanceOf、valueOf区别">
+                typeOf、instanceOf、valueOf区别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/13868548?v=3&s=460"
+               alt="Point Halo" />
+          <p class="site-author-name" itemprop="name">Point Halo</p>
+          <p class="site-description motion-element" itemprop="description">Point Halo's Blog</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#容器的属性"><span class="nav-number">1.</span> <span class="nav-text">容器的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、flex-direction属性决定主轴的方向（即项目的排列方向）。"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、flex-direction属性决定主轴的方向（即项目的排列方向）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、flex-wrap属性定义，如果一条轴线排不下，如何换行。"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、flex-wrap属性定义，如果一条轴线排不下，如何换行。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、justify-content属性定义了项目在主轴上的对齐方式，"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、justify-content属性定义了项目在主轴上的对齐方式，</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、align-items属性定义项目在交叉轴上如何对齐，可以理解为竖轴"><span class="nav-number">1.0.5.</span> <span class="nav-text">五、align-items属性定义项目在交叉轴上如何对齐，可以理解为竖轴</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#六、align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。"><span class="nav-number">1.0.6.</span> <span class="nav-text">六、align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目的属性"><span class="nav-number">2.</span> <span class="nav-text">项目的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#order-属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">order:属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flex-grow-属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">flex-grow:属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flex-shrink-属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">flex-shrink:属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flex-basis-属性定义了在分配多余空间之前，项目占据的主轴空间（main-size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。"><span class="nav-number">2.0.0.4.</span> <span class="nav-text">flex-basis:属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flex-属性是flex-grow-flex-shrink-和-flex-basis的简写，默认值为0-1-auto。后两个属性可选。建议优先使用这个属性"><span class="nav-number">2.0.0.5.</span> <span class="nav-text">flex:属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。建议优先使用这个属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#align-self-属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。"><span class="nav-number">2.0.0.6.</span> <span class="nav-text">align-self:属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后flex学习强烈推荐阮一峰老师的教程，把这篇文章举到的例子，骰子的布局好好想一遍，实现一遍，基本flex就掌握了"><span class="nav-number">2.1.</span> <span class="nav-text">最后flex学习强烈推荐阮一峰老师的教程，把这篇文章举到的例子，骰子的布局好好想一遍，实现一遍，基本flex就掌握了</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Point Halo</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

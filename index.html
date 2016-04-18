@@ -229,7 +229,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/04/16/test/" itemprop="url">
+                <a class="post-title-link" href="/2016/04/16/Javascript_find/" itemprop="url">
                   字符串检索相关的操作总结
                 </a>
               
@@ -292,29 +292,70 @@
       
         
           
-            <p>#字符串检索相关的操作总结</p>
-<p>###前言扩展： 正则<br>在javascirpt里面可以用两种方法创建一个正则对象</p>
-<p>1、使用字面量 /pattern/<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var reg= /^[0-9]$/;    </span><br><span class="line">var reg= /ab+c/i;</span><br></pre></td></tr></table></figure></p>
-<p>2、使用构造函数  new (pattern[,flags])</p>
-<p>第二个参数为可选， 包含属性 “g”、”i” 和 “m”，分别用于指定全局匹配、区分大小写的匹配和多行匹配<br>修饰符 描述<br> i 执行对大小写不敏感的匹配。（ingore case）<br> g 执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）。（global）<br> m 执行多行匹配。（multi）</p>
+            <h1 id="字符串检索相关的操作总结"><a href="#字符串检索相关的操作总结" class="headerlink" title="字符串检索相关的操作总结"></a>字符串检索相关的操作总结</h1><h3 id="前言扩展：-正则"><a href="#前言扩展：-正则" class="headerlink" title="前言扩展： 正则"></a>前言扩展： 正则</h3><p>在javascirpt里面可以用两种方法创建一个正则对象</p>
+<h4 id="1、使用字面量-pattern"><a href="#1、使用字面量-pattern" class="headerlink" title="1、使用字面量 /pattern/"></a>1、使用字面量 /pattern/</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var reg= /^[0-9]$/;    </span><br><span class="line">var reg= /ab+c/i;</span><br></pre></td></tr></table></figure>
+<h4 id="2、使用构造函数-new-pattern-flags"><a href="#2、使用构造函数-new-pattern-flags" class="headerlink" title="2、使用构造函数  new (pattern[,flags])"></a>2、使用构造函数  new (pattern[,flags])</h4><p>第二个参数为可选， 包含属性 “g”、”i” 和 “m”，分别用于指定全局匹配、区分大小写的匹配和多行匹配</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> i</td>
+<td>执行对大小写不敏感的匹配(ignore case)</td>
+</tr>
+<tr>
+<td> g</td>
+<td>执行全局匹配（查找所有匹配项而非在找到第一个匹配后停止）(global)</td>
+</tr>
+<tr>
+<td> m</td>
+<td>执行多行匹配。也就是，^ 和 $ 可以匹配字符串中每一行的开始和结束（行是由 \n 或 \r 分割的），而不只是整个输入字符串的最开始和最末尾处。（multiline）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注：正则的快速学习教程推荐</p>
+</blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var reg= new RegExp(&apos;^abc&#123;1&#125;[0-9]*$&apos;,&apos;i&apos;);   正则表达式运行时编译</span><br><span class="line">var reg= new RegExp(&apos;^abc&#123;1&#125;[0-9]*$&apos;);</span><br><span class="line">var reg= new RegExp(/ab+c/,&apos;i&apos;);  直接使用正则表达式构造对象</span><br><span class="line">var reg= new RegExp(/ab+c/i)</span><br></pre></td></tr></table></figure>
 <p>注：ECMA6之前，如果第一个参数是正则表达式而不是字符串的时候，第二个参数必须省略，否则会跑出TypeError （“当从其他正则表达式进行构造时不支持标志”）异常<br>到了ECMA6，不再抛出错误。那此时第二个参数有没有用呢？我们来试一试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var reg= new RegExp(/^abc&#123;1&#125;[0-9]*$/,&apos;i&apos;); reg.test(&apos;Abc5&apos;);</span><br><span class="line">//true 实际等同下一条</span><br><span class="line">var reg= new RegExp(/^abc&#123;1&#125;[0-9]*$/i); reg.test(&apos;Abc5&apos;);</span><br><span class="line">//true</span><br><span class="line">var reg= new RegExp(/^abc&#123;1&#125;[0-9]*$/); reg.test(&apos;Abc5&apos;);</span><br><span class="line">//false</span><br></pre></td></tr></table></figure></p>
 <p>可以看到，当第一参数是正则表达式的时候，第二个参数还是可以正确使用的<br>(chrome v49.0.2623)</p>
-<table><br><tr><th>方法</th><th>描述</th><th>FF</th><th>IE</th><br></tr><br><tr><br></tr><tr><th>compile</th><th>编译正则表达式</th><th>1</th><th>4</th><br></tr><br><tr><th>exec</th><th>检索字符串中指定的值。返回找到的值，并确定其位置。</th><th>1</th><th>4</th><br></tr><br><tr><th>test</th><th>检索字符串中指定的值。返回 true 或 false。</th><th>1</th><th>4</th><br></tr><br></table>
-
-<hr>
-<p>###下面正式进入主题</p>
-<p>###1、test</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> compile</td>
+<td>编译正则表达式</td>
+</tr>
+<tr>
+<td> exec</td>
+<td>检索字符串中指定的值。返回找到的值，并确定其位置。</td>
+</tr>
+<tr>
+<td> test</td>
+<td>检索字符串中指定的值。返回 true 或 false。</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
+<p>注：正则的快速学习教程推荐<a href="http://deerchao.net/tutorials/regex/regex-1.htm" target="_blank" rel="external">http://deerchao.net/tutorials/regex/regex-1.htm</a></p>
+</blockquote>
+<hr>
+<h3 id="下面正式进入主题"><a href="#下面正式进入主题" class="headerlink" title="下面正式进入主题"></a>下面正式进入主题</h3><h3 id="1、test"><a href="#1、test" class="headerlink" title="1、test"></a>1、test</h3><blockquote>
 <p>RegExpObject.test(string)</p>
 </blockquote>
 <p>test() 方法是正则对象的一个方法，用于检测一个字符串是否匹配某个模式，<strong>返回 true 或 false</strong>。</p>
 <p>对，我们可以编写相应的正则方法，然后使用Reg对象的test方法来检测是否存在相关字符串，而且还可以很自由地掌控检测规则，例如目标字符串在多少位后出现，重复出现几次等等<br>实际上与这个表达式是等价的 (r.exec(s)!=null)<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg= <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/^abc&#123;1&#125;[0-9]*$/</span>); reg.test(<span class="string">'abc5'</span>);  <span class="comment">//true         </span></span><br><span class="line"><span class="keyword">var</span> reg= <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/^abc&#123;1&#125;[0-9]*$/</span>); reg.test(<span class="string">'cccabc5'</span>); <span class="comment">// false  </span></span><br><span class="line"><span class="keyword">var</span> reg= <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/^abc&#123;1&#125;[0-9]*$/i</span>); reg.test(<span class="string">'Abc5'</span>);  <span class="comment">//true</span></span><br><span class="line"><span class="keyword">var</span> reg= <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/^abc&#123;1&#125;[0-9]*$/</span>); reg.test(<span class="string">'Abc5'</span>);  <span class="comment">//false  </span></span><br><span class="line"><span class="comment">//在开头abc出现一次之后跟着若干个数字</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注：正则的快速学习教程推荐<a href="http://deerchao.net/tutorials/regex/regex-1.htm" target="_blank" rel="external">http://deerchao.net/tutorials/regex/regex-1.htm</a></p>
-</blockquote>
-<p>###2、exec</p>
-<blockquote>
+<p>test方法会更新lastIndex属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var strs=&apos;Markdown markdown markdown&apos;;</span><br><span class="line">var reg=new RegExp(/markdown/g);</span><br><span class="line">reg.test(strs);//true</span><br><span class="line">console.log(reg.lastIndex)//17</span><br><span class="line">reg.test(strs);//true</span><br><span class="line">console.log(reg.lastIndex)//26</span><br><span class="line">reg.test(strs);//false</span><br><span class="line">console.log(reg.lastIndex)//0</span><br></pre></td></tr></table></figure></p>
+<h3 id="2、exec"><a href="#2、exec" class="headerlink" title="2、exec"></a>2、exec</h3><blockquote>
 <p>RegExpObject.exec(string)</p>
 <p>在循环中反复地调用 exec() 方法是唯一一种获得全局模式的完整模式匹配信息的方法。</p>
 </blockquote>
@@ -325,38 +366,40 @@
 <li><p>如果不包括g标志，返回一个结果数组，此数组的第 0 个元素是与正则表达式相匹配的文本，第 1 个元素是与 RegExpObject 的第 1 个子表达式相匹配的文本（如果有的话），第 2 个元素是与 RegExpObject 的第 2 个子表达式相匹配的文本（如果有的话），即返回stringObject.match()相同的结果；</p>
 <p><strong>除了数组元素和 length 属性之外，exec() 方法还返回两个属性。index 表示匹配结果在原字符串中的索引。input 属性则存放的是被检索的字符串 string。</strong></p>
 </li>
-<li>如果正则表达式包括g标志，返回一个数组，数组的内容是所有包含匹配的字符串。注意！不是位置！不是位置！；它会在RegExp的lastIndex置顶的位置开始检索字符串，当exec()找到了一个与表达式匹配的文本后，在匹配后，会吧lastIndex改为匹配文本的最后一个字符的最后一个位置。That mean 我们可以通过反复调用exec()来便利字符串中的所有匹配文本，当exec()再找不到匹配的文本时，将返回null，并把lastIndex置为0；</li>
+<li>如果正则表达式包括g标志，返回一个数组，数组的内容是所有包含匹配的字符串。不是位置！不是位置！；<strong>它会在RegExp的lastIndex置顶的位置开始检索字符串，当exec()找到了一个与表达式匹配的文本后，在匹配后，会吧lastIndex改为匹配文本的最后一个字符的最后一个位置</strong>。That mean 我们可以通过反复调用exec()来便利字符串中的所有匹配文本，当exec()再找不到匹配的文本时，将返回null，并把lastIndex置为0；<br>注意:它不会一次返回所有匹配的项，而是每次执行都从lastIndex开始找一个匹配项，就返回</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var str=&quot;Jianshu markdown bu zhi chi table Markdown,markdown repeat&quot;;</span><br><span class="line">var ag=new RegExp(&apos;&apos;,&apos;g&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var str = &quot;Visit W3School&quot;;</span><br><span class="line">var patt = new RegExp(&quot;W3School&quot;,&quot;g&quot;);</span><br><span class="line">var result;</span><br><span class="line"></span><br><span class="line">while ((`result = patt.exec(str)`) != null)  &#123;</span><br><span class="line">  document.write(result);</span><br><span class="line">  document.write(&quot;&lt;br /&gt;&quot;);</span><br><span class="line">  document.write(`patt.lastIndex`);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>###3、search</p>
-<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">var str=&quot;Jianshu markdown bu zhi chi table Markdown,markdown repeat&quot;;</span><br><span class="line">var agi=new RegExp(&apos;markdown&apos;,&apos;gi&apos;)；</span><br><span class="line">//var agi=new RegExp(/markdown/gi);</span><br><span class="line">console.log(agi.exec(str)) console.log(ag.lastIndex)</span><br><span class="line">console.log(agi.exec(str)) console.log(ag.lastIndex)</span><br><span class="line">console.log(agi.exec(str)) console.log(ag.lastIndex)</span><br><span class="line"></span><br><span class="line">//[&quot;markdown&quot;, index: 8, input: &quot;Jianshu markdown bu zhi chi table Markdown , markdown repeat&quot;]</span><br><span class="line">//16</span><br><span class="line">//[&quot;Markdown&quot;, index: 34, input: &quot;Jianshu markdown bu zhi chi table Markdown , markdown repeat&quot;]</span><br><span class="line">//42</span><br><span class="line">//[&quot;markdown&quot;, index: 45, input: &quot;Jianshu markdown bu zhi chi table Markdown , markdown repeat&quot;]</span><br><span class="line">//53</span><br><span class="line">//null</span><br><span class="line">//0</span><br><span class="line">//global模式下每次返回一个匹配的值,改变lastIndex的值</span><br><span class="line"></span><br><span class="line">var ai=new RegExp(&apos;markdown&apos;,&apos;i&apos;);</span><br><span class="line">//var ai=new RegExp(/markdown/i);</span><br><span class="line">console.log(ai.exec(str));console.log(ai.lastIndex)</span><br><span class="line">console.log(ai.exec(str));console.log(ai.lastIndex)</span><br><span class="line">console.log(ai.exec(str));</span><br><span class="line">//[&quot;markdown&quot;, index: 8, input: &quot;Jianshu markdown bu zhi chi table Markdown , markdown repeat&quot;]</span><br><span class="line">//0</span><br><span class="line">//[&quot;markdown&quot;, index: 8, input: &quot;Jianshu markdown bu zhi chi table Markdown , markdown repeat&quot;]</span><br><span class="line">//0</span><br><span class="line">//[&quot;markdown&quot;, index: 8, input: &quot;Jianshu markdown bu zhi chi table Markdown , markdown repeat&quot;]</span><br><span class="line">//没有global标志，三次执行结果一样，不会改变lastIndex的值</span><br></pre></td></tr></table></figure>
+<h3 id="3、search"><a href="#3、search" class="headerlink" title="3、search"></a>3、search</h3><blockquote>
 <p>stringObject.search(regexp)</p>
 </blockquote>
 <p>用于检索字符串中指定的子字符串，或检索 与正则表达式相匹配的子字符串。返回<strong>第一个</strong>与regexp相匹配的子串的<strong>起始位置</strong>,如果要执行忽略大小写的检索，追加标志i</p>
 <p>#####特性：对大小写敏感，且不执行全局匹配，忽略标志g，也忽略lastIndex属性，总是从字符串的开始进行检索</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="string">"Jianshu markdown bu zhi chi table Markdown"</span>;</span><br><span class="line">a.search(<span class="string">'jianshu'</span>);      <span class="comment">//-1</span></span><br><span class="line">a.search(<span class="string">'Jianshu'</span>);      <span class="comment">//0</span></span><br><span class="line">a.search(<span class="string">'markdown'</span>);      <span class="comment">//8</span></span><br><span class="line">a.search(<span class="regexp">/\bmarkdown\b/</span>) ; <span class="comment">//8</span></span><br><span class="line"></span><br><span class="line">a.search(<span class="regexp">/JIanShu/i</span>)    <span class="comment">//0 使用search做忽略大小写的匹配呢，就是在后面加i</span></span><br></pre></td></tr></table></figure>
-<p>###4、match</p>
-<blockquote>
+<h3 id="4、match"><a href="#4、match" class="headerlink" title="4、match"></a>4、match</h3><blockquote>
 <p>stringObject.match(regexp)</p>
 </blockquote>
 <p>当字符串匹配到正则表达式的时候，match()会<strong>提取匹配项</strong></p>
 <ul>
 <li>如果正则表达式包括g标志，返回一个数组，数组的内容是所有包含匹配的字符串。注意！不是位置！不是位置！；</li>
-<li>如果不包括g标志，返回一个<del>长度为1的</del>数组，内容是第一个匹配的字符串，即返回与Reg.exec(str)相同的结果；<br><strong>而且返回的数组拥有额外的一个input属性，该属性包含原始字符串，另外还有一个index属性，表示匹配结果在原字符串中的索引</strong></li>
+<li>如果不包括g标志，返回一个数组，内容是第一个匹配的字符串，即返回与Reg.exec(str)相同的结果；<br><strong>而且返回的数组拥有额外的一个input属性，该属性包含原始字符串，另外还有一个index属性，表示匹配结果在原字符串中的索引</strong></li>
 <li>如果未找到匹配，则返回值为 null</li>
 </ul>
-<p>参数是一个正则表达式对象，如果传入一个非正则表达式对象，会隐式使用New RegExp(obj)将其转换为正则表达式对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var b=&apos;Markdown markdown markdown&apos;;</span><br><span class="line">b.match(/markdown/ig) //[&quot;Markdown&quot;, &quot;markdown&quot;, &quot;markdown&quot;]</span><br><span class="line">b.match(/markdown/i)  //[&quot;Markdown&quot;]</span><br><span class="line">b.match(&apos;markdown&apos;) //[&quot;markdown&quot;] 这里发生了一次隐式转换</span><br><span class="line">b.match(&apos;markdown/i&apos;) //null 因为是直接吧markdown/i整个字符串进行RegExp构建的</span><br><span class="line">var c=b.match(/markdown/)</span><br><span class="line">console.log(c); //[&quot;markdown&quot;, index: 9, input: &quot;Markdown markdown markdown&quot;]</span><br></pre></td></tr></table></figure></p>
-<p>###5、includes<br>includes()  方法用于 判断一个字符串是否被包含在另一个字符串中，如果是返回 true，否则返回 false。该方法<strong>区分大小写</strong></p>
+<p>参数是一个正则表达式对象，如果传入一个非正则表达式对象，会隐式使用New RegExp(obj)将其转换为正则表达式对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var b=&apos;Markdown markdown markdown&apos;;</span><br><span class="line">b.match(/markdown/ig) //[&quot;Markdown&quot;, &quot;markdown&quot;, &quot;markdown&quot;]</span><br><span class="line">b.match(/markdown/i)  //[&quot;Markdown&quot;]</span><br><span class="line">b.match(&apos;markdown&apos;) //[&quot;markdown&quot;] 这里发生了一次隐式转换</span><br><span class="line">b.match(&apos;markdown/i&apos;) //null 因为是直接吧markdown/i整个字符串进行RegExp构建的</span><br><span class="line"></span><br><span class="line">var c=b.match(/markdown/)</span><br><span class="line">console.log(c); //[&quot;markdown&quot;, index: 9, input: &quot;Markdown markdown markdown&quot;]</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//尝试设置lastIndex改变匹配起始处</span><br><span class="line">var b=&apos;Markdown markdown markdown&apos;;</span><br><span class="line">var temp=new RegExp(/markdown/);</span><br><span class="line">temp.lastIndex=18;</span><br><span class="line">var c=b.match(temp);</span><br><span class="line">console.log(c)</span><br><span class="line">//[&quot;markdown&quot;, index: 9, input: &quot;Markdown markdown markdown&quot;]</span><br><span class="line">//似乎没有用</span><br></pre></td></tr></table></figure>
+<p>在w3c的页面找到了一个说明</p>
+<blockquote>
+<p><strong>重要事项：不具有标志 g 和不表示全局模式的 RegExp 对象不能使用 lastIndex 属性。</strong></p>
+</blockquote>
+<p>好，那在全局模式再试一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var b=&apos;Markdown markdown markdown&apos;;</span><br><span class="line">var temp=new RegExp(/markdown/g);</span><br><span class="line">temp.lastIndex=18;</span><br><span class="line">var c=b.match(temp);</span><br><span class="line">console.log(c)</span><br><span class="line">//[&quot;markdown&quot;, &quot;markdown&quot;]</span><br><span class="line">//依然没有用</span><br></pre></td></tr></table></figure></p>
+<h3 id="5、includes"><a href="#5、includes" class="headerlink" title="5、includes"></a>5、includes</h3><p>includes()  方法用于 判断一个字符串是否被包含在另一个字符串中，如果是返回 true，否则返回 false。该方法<strong>区分大小写</strong></p>
 <p>######兼容性：ECMA6，chrome 41+、firefox 40+，safari 9+；ie全系不支持</p>
 <blockquote>
 <p>stringObject.includes(searchString [, position])</p>
 </blockquote>
 <p>searchString 将要搜寻的子字符串。 position<br>可选。从当前字符串的哪个索引位置开始搜寻子字符串；默认为0。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var str = &apos;To be, or not to be, that is the question.&apos;;</span><br><span class="line"></span><br><span class="line">console.log(str.includes(&apos;To be&apos;));       // true</span><br><span class="line">console.log(str.includes(&apos;question&apos;));    // true</span><br><span class="line">console.log(str.includes(&apos;nonexistent&apos;)); // false</span><br><span class="line">console.log(str.includes(&apos;To be&apos;, 1));    // false</span><br><span class="line">console.log(str.includes(&apos;TO BE&apos;));       // false</span><br></pre></td></tr></table></figure>
-<p>#####Polyfill:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">if (!String.prototype.includes) &#123;</span><br><span class="line">  String.prototype.includes = function(search, start) &#123;</span><br><span class="line">    &apos;use strict&apos;;</span><br><span class="line">    if (typeof start !== &apos;number&apos;) &#123;</span><br><span class="line">      start = 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (start + search.length &gt; this.length) &#123;</span><br><span class="line">      return false;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      return this.indexOf(search, start) !== -1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到<br>str.includes()跟RegExp.test()类似,返回一个布尔值<br>str.match()跟RegExp.exec()类似，返回一个数组或null<br>str.search()返回第一次出现的位置，与indexOf类似</p>
-<blockquote>
+<h5 id="Polyfill"><a href="#Polyfill" class="headerlink" title="Polyfill:"></a>Polyfill:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">if (!String.prototype.includes) &#123;</span><br><span class="line">  String.prototype.includes = function(search, start) &#123;</span><br><span class="line">    &apos;use strict&apos;;</span><br><span class="line">    if (typeof start !== &apos;number&apos;) &#123;</span><br><span class="line">      start = 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (start + search.length &gt; this.length) &#123;</span><br><span class="line">      return false;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      return this.indexOf(search, start) !== -1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h5><h5 id="str-includes-跟RegExp-test-类似-返回一个布尔值"><a href="#str-includes-跟RegExp-test-类似-返回一个布尔值" class="headerlink" title="str.includes()跟RegExp.test()类似,返回一个布尔值"></a>str.includes()跟RegExp.test()类似,返回一个布尔值</h5><h5 id="str-match-跟RegExp-exec-类似，返回一个数组或null"><a href="#str-match-跟RegExp-exec-类似，返回一个数组或null" class="headerlink" title="str.match()跟RegExp.exec()类似，返回一个数组或null"></a>str.match()跟RegExp.exec()类似，返回一个数组或null</h5><h5 id="str-search-返回第一次出现的位置，与indexOf类似"><a href="#str-search-返回第一次出现的位置，与indexOf类似" class="headerlink" title="str.search()返回第一次出现的位置，与indexOf类似"></a>str.search()返回第一次出现的位置，与indexOf类似</h5><h5 id="会更新lastIndex属性的有RegExp-test-以及RegExp-exec"><a href="#会更新lastIndex属性的有RegExp-test-以及RegExp-exec" class="headerlink" title="会更新lastIndex属性的有RegExp.test()以及RegExp.exec()"></a>会更新lastIndex属性的有RegExp.test()以及RegExp.exec()</h5><blockquote>
 <p>参考资料：</p>
 <ul>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/includes" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/includes</a></li>
@@ -413,8 +456,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/04/16/新建的文章/" itemprop="url">
-                  新建的文章
+                <a class="post-title-link" href="/2016/03/23/font_spider/" itemprop="url">
+                  Gulp+fontspider实现按需压缩中文字体压缩
                 </a>
               
             
@@ -427,11 +470,30 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-16T21:08:44+08:00" content="2016-04-16">
-              2016-04-16
+            <time itemprop="dateCreated" datetime="2016-03-23T12:00:00+08:00" content="2016-03-23">
+              2016-03-23
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Gulp/" itemprop="url" rel="index">
+                    <span itemprop="name">Gulp</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -457,7 +519,50 @@
       
         
           
-            
+            <h3 id="首先简单介绍一下fontspider的原理"><a href="#首先简单介绍一下fontspider的原理" class="headerlink" title="首先简单介绍一下fontspider的原理"></a>首先简单介绍一下fontspider的原理</h3><ol>
+<li>爬行本地 html 文档，分析所有 css 语句</li>
+<li>记录@font-face<br>语句声明的字体，并且记录使用该字体的 css 选择器</li>
+<li>通过 css 选择器的规则查找当前 html 文档的节点，记录节点上的文本</li>
+<li>找到字体文件并删除没被使用的字符</li>
+<li>编码成跨平台使用的字体格式</li>
+</ol>
+<h3 id="下面进去实际操作"><a href="#下面进去实际操作" class="headerlink" title="下面进去实际操作"></a>下面进去实际操作</h3><h5 id="1-全局安装-gulp："><a href="#1-全局安装-gulp：" class="headerlink" title="1. 全局安装 gulp："></a>1. 全局安装 gulp：</h5><blockquote>
+<p>$ npm install –global gulp</p>
+</blockquote>
+<h5 id="2-进入项目根目录，作为项目的开发依赖（devDependencies）安装："><a href="#2-进入项目根目录，作为项目的开发依赖（devDependencies）安装：" class="headerlink" title="2. 进入项目根目录，作为项目的开发依赖（devDependencies）安装："></a>2. 进入项目根目录，作为项目的开发依赖（devDependencies）安装：</h5><blockquote>
+<p>$ npm install –save-dev gulp</p>
+</blockquote>
+<h5 id="3-新建package-json"><a href="#3-新建package-json" class="headerlink" title="3. 新建package.json"></a>3. 新建package.json</h5><blockquote>
+<p>npm init</p>
+</blockquote>
+<p>然后开始填写信息</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-8b786f2a0151249a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>如果不知道怎么填写可以</p>
+<blockquote>
+<p>npm help package.json</p>
+</blockquote>
+<h5 id="4、开始安装所要使用的依赖的插件"><a href="#4、开始安装所要使用的依赖的插件" class="headerlink" title="4、开始安装所要使用的依赖的插件"></a>4、开始安装所要使用的依赖的插件</h5><p>例如 安装gulp-cache</p>
+<blockquote>
+<p>npm install gulp-cache –save-dev</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-33827efef6a24977.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>会看到package.json里面也自动新增了依赖项</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-89761f194b303c4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>继续安装其他需要用到的插件……此处省略</p>
+<p>依赖插件都安装好之后，我的package.json变成了这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">      &quot;name&quot;: &quot;font_spider_demo&quot;,</span><br><span class="line">      &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">      &quot;description&quot;: &quot;zip web-font&quot;,</span><br><span class="line">      &quot;main&quot;: &quot;gulpfile.js&quot;,</span><br><span class="line">      &quot;dependencies&quot;: &#123;</span><br><span class="line">      &quot;gulp&quot;: &quot;^3.9.1&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">  &quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;del&quot;: &quot;^2.2.0&quot;,</span><br><span class="line">    &quot;gulp-cache&quot;: &quot;^0.4.3&quot;,</span><br><span class="line">    &quot;gulp-font-spider&quot;: &quot;^0.2.0&quot;,</span><br><span class="line">    &quot;gulp-minify-css&quot;: &quot;^1.2.4&quot;,</span><br><span class="line">    &quot;gulp-notify&quot;: &quot;^2.2.0&quot;,</span><br><span class="line">    &quot;gulp-rename&quot;: &quot;^1.2.2&quot;,</span><br><span class="line">    &quot;gulp-tinypng&quot;: &quot;^1.0.2&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;font&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [</span><br><span class="line">    &quot;webfont&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;author&quot;: &quot;point_halo&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;UNLICENSED&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="5、在项目根目录下创建一个名为-gulpfile-js-的文件："><a href="#5、在项目根目录下创建一个名为-gulpfile-js-的文件：" class="headerlink" title="5、在项目根目录下创建一个名为 gulpfile.js 的文件："></a>5、在项目根目录下创建一个名为 gulpfile.js 的文件：</h5><p>开始写任务，新建gulpfile.js（说明：gulpfile.js是gulp项目的配置文件）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//导入工具包 require(&apos;node_modules里对应模块&apos;)</span><br><span class="line">var gulp = require(&apos;gulp&apos;), //本地安装gulp所用到的地方</span><br><span class="line">    less = require(&apos;gulp-less&apos;);</span><br><span class="line"></span><br><span class="line">//定义一个testLess任务（自定义任务名称）</span><br><span class="line">gulp.task(&apos;testLess&apos;, function () &#123;</span><br><span class="line">    gulp.src(&apos;src/less/index.less&apos;) //该任务针对的文件</span><br><span class="line">        .pipe(less()) //该任务调用的模块</span><br><span class="line">        .pipe(gulp.dest(&apos;src/css&apos;)); //将会在src/css下生成index.css</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gulp.task(&apos;default&apos;,[&apos;testLess&apos;, &apos;elseTask&apos;]); //定义默认任务</span><br><span class="line"></span><br><span class="line">//gulp.task(name[, deps], fn) 定义任务  name：任务名称 deps：依赖任务名称 fn：回调函数</span><br><span class="line">//gulp.src(globs[, options]) 执行任务处理的文件  globs：处理的文件路径(字符串或者字符串数组)</span><br><span class="line">//gulp.dest(path[, options]) 处理完后文件生成路径</span><br></pre></td></tr></table></figure></p>
+<h3 id="附上我最终的gulpfile-js"><a href="#附上我最终的gulpfile-js" class="headerlink" title="附上我最终的gulpfile.js"></a>附上我最终的gulpfile.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">//引入组件</span><br><span class="line">var gulp = require(&apos;gulp&apos;);</span><br><span class="line">  minifycss = require(&apos;gulp-minify-css&apos;),</span><br><span class="line">  rename = require(&apos;gulp-rename&apos;),</span><br><span class="line">  tinypng = require(&apos;gulp-tinypng&apos;),</span><br><span class="line">  notify = require(&apos;gulp-notify&apos;),</span><br><span class="line">  cache = require(&apos;gulp-cache&apos;),</span><br><span class="line">  fontSpider=require(&apos;gulp-font-spider&apos;),</span><br><span class="line">  del = require(&apos;del&apos;);</span><br><span class="line">gulp.task(&apos;clean&apos;, function(cb) &#123;</span><br><span class="line">  del([&apos;dist/css&apos;, &apos;dist/assets/js&apos;, &apos;dist/assets/img&apos;], cb);</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;cssmin&apos;, function() &#123; //执行完clean之后再执行cssmin</span><br><span class="line">  gulp.src(&apos;*.css&apos;)</span><br><span class="line">    .pipe(rename(&#123;</span><br><span class="line">      suffix: &apos;.min&apos;</span><br><span class="line">    &#125;)) //suffix后缀名 prefix前缀名 extname文件格式</span><br><span class="line">    .pipe(minifycss())</span><br><span class="line">    .pipe(gulp.dest(&apos;dist&apos;))</span><br><span class="line">    .pipe(notify(&#123;</span><br><span class="line">      message: &apos;css compress done&apos;</span><br><span class="line">    &#125;));</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;tinypng&apos;, function() &#123;</span><br><span class="line">  gulp.src(&apos;*.jpg&apos;)</span><br><span class="line">    .pipe(cache(tinypng(&apos;HYalYWQL5nNm985-wSaZYAX-3lMZVCRO&apos;)))//调用tinypng的api-key</span><br><span class="line">    .pipe(gulp.dest(&apos;dist/img&apos;))</span><br><span class="line">    .pipe(notify(&#123;</span><br><span class="line">      message: &apos;image compress done&apos;</span><br><span class="line">    &#125;));</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;testfont&apos;,function () &#123;</span><br><span class="line">  gulp.src(&apos;*.html&apos;)</span><br><span class="line">  .pipe(fontSpider())</span><br><span class="line">  .pipe(notify(&#123;</span><br><span class="line">    message: &apos;font compress done&apos;</span><br><span class="line">  &#125;));</span><br><span class="line">&#125;);</span><br><span class="line">//默认的任务数组，运行gulp的时候 与运行 gulp default是同样效果</span><br><span class="line">gulp.task(&apos;default&apos;, [&apos;clean&apos;, &apos;cssmin&apos;, &apos;tinypng&apos;,&apos;testfont&apos;], function() &#123;&#125;);</span><br><span class="line">gulp.task(&apos;watch&apos;, function() &#123;</span><br><span class="line">  //Watch css files</span><br><span class="line">  gulp.watch(&apos;*.css&apos;, [&apos;cssmin&apos;]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="我们现在添加一个html文件引用font的来测试一下"><a href="#我们现在添加一个html文件引用font的来测试一下" class="headerlink" title="我们现在添加一个html文件引用font的来测试一下"></a>我们现在添加一个html文件引用font的来测试一下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;utf-8&quot; /&gt;</span><br><span class="line">  &lt;title&gt;Fonttest&lt;/title&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=0,minimum-scale=1,maximum-scale=1,user-scalable=no&quot;&gt;</span><br><span class="line">  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;</span><br><span class="line">  &lt;meta name=&quot;keywords&quot; content=&quot;&quot; /&gt;</span><br><span class="line">  &lt;meta name=&quot;description&quot; content=&quot;&quot; /&gt;</span><br><span class="line">  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;./test.css&quot; /&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;!-- 页面主体内容 开始 --&gt;</span><br><span class="line">  &lt;div class=&quot;container&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;main&quot;&gt;</span><br><span class="line">          &lt;span class=&quot;font_1&quot;&gt;我是一号字体&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span&gt;新添加的&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_2&quot;&gt;随便添加一点文字测试用的&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_2&quot;&gt;看看就好而还好有你吗&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_1&quot;&gt;贵夫人身体依然过以后突然一天突然有人同意&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_2&quot;&gt;的撒发生发的萨芬&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_2&quot;&gt;发热贴同仁堂&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">          &lt;span class=&quot;font_1&quot;&gt;多项目的时候怎么办&lt;/span&gt;&lt;/br&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;!-- 页面主体内容 结束 --&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="css文件"><a href="#css文件" class="headerlink" title="css文件"></a>css文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@charset &quot;UTF-8&quot;;</span><br><span class="line">html&#123;font-size: 20px;&#125;</span><br><span class="line">@font-face &#123;</span><br><span class="line">      font-family:&apos;test1&apos;;</span><br><span class="line">      src:url(&apos;./test2.TTF&apos;) format(&apos;truetype&apos;);</span><br><span class="line">      font-weight: normal;</span><br><span class="line">      font-style: normal;</span><br><span class="line">&#125;</span><br><span class="line">@font-face &#123;</span><br><span class="line">      font-family:&apos;test2&apos;;</span><br><span class="line">      src:url(&apos;./test1.TTF&apos;) format(&apos;truetype&apos;);</span><br><span class="line">      font-weight: normal;</span><br><span class="line">      font-style: normal;</span><br><span class="line">&#125;</span><br><span class="line">@font-face &#123;</span><br><span class="line">      font-family:&apos;test3&apos;;</span><br><span class="line">      src:url(&apos;./test3.ttf&apos;) format(&apos;truetype&apos;);</span><br><span class="line">      font-weight: normal;</span><br><span class="line">      font-style: normal;</span><br><span class="line">&#125;</span><br><span class="line">.main&#123;</span><br><span class="line">  font-size:1rem;</span><br><span class="line">  color: #61B3E6;</span><br><span class="line">&#125;</span><br><span class="line">.font_1&#123;</span><br><span class="line">  font-size:1rem;</span><br><span class="line">  font-family: test1;</span><br><span class="line">  color: #61B3E6;</span><br><span class="line">&#125;</span><br><span class="line">.font_2&#123;</span><br><span class="line">  font-size:1rem;</span><br><span class="line">  font-family: test2;</span><br><span class="line">  color:#61B3E6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="注意html页面引用的css必须是相对路径-不能使用绝对路径-否则fontspider不能识别"><a href="#注意html页面引用的css必须是相对路径-不能使用绝对路径-否则fontspider不能识别" class="headerlink" title="注意html页面引用的css必须是相对路径 不能使用绝对路径 否则fontspider不能识别"></a>注意html页面引用的css必须是相对路径 不能使用绝对路径 否则fontspider不能识别</h5><p><img src="http://upload-images.jianshu.io/upload_images/1044668-d915cfbbb2f8ac79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>开始运行gulp任务</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-e101b0a3ab267da7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>出错了</p>
+<blockquote>
+<p>htmlFiles.map is not a funtion</p>
+</blockquote>
+<p>这个是gulp-font-spider插件本身的一点小错误<br>github上有相对应的issue，但作者好像一直没有进行修正<br><a href="https://github.com/unliu/gulp-font-spider/commit/61f78eead0092d2e6f499e3bccf335f383d90aa2" target="_blank" rel="external">https://github.com/unliu/gulp-font-spider/commit/61f78eead0092d2e6f499e3bccf335f383d90aa2</a><br>要想正常使用 我们需要修改一下它的源码，\node_modules\gulp-font-spider\index.js<br>把file改为file.path</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-1f7cbabec2965bf4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>我们再次运行Gulp命令</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-d923cc686a7920bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>没有报错了，css已成功压缩，字体压缩也已成功<br>再来看一下项目根目录</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-af427d7677c1e8ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<h3 id="字体已经压缩成功了，而原来的字体源文件，则是已到了-font-spider文件夹里面保存"><a href="#字体已经压缩成功了，而原来的字体源文件，则是已到了-font-spider文件夹里面保存" class="headerlink" title="字体已经压缩成功了，而原来的字体源文件，则是已到了.font-spider文件夹里面保存"></a>字体已经压缩成功了，而原来的字体源文件，则是已到了.font-spider文件夹里面保存</h3><h3 id="可以看到字体资源大小明显在可接受范围内了"><a href="#可以看到字体资源大小明显在可接受范围内了" class="headerlink" title="可以看到字体资源大小明显在可接受范围内了"></a>可以看到字体资源大小明显在可接受范围内了</h3><h3 id="压缩后的min-css也在dist文件夹内安安静静躺着"><a href="#压缩后的min-css也在dist文件夹内安安静静躺着" class="headerlink" title="压缩后的min-css也在dist文件夹内安安静静躺着"></a>压缩后的min-css也在dist文件夹内安安静静躺着</h3><h3 id="好了-这样我们就再也不怕在移动端引入中文字体了"><a href="#好了-这样我们就再也不怕在移动端引入中文字体了" class="headerlink" title="好了 这样我们就再也不怕在移动端引入中文字体了"></a>好了 这样我们就再也不怕在移动端引入中文字体了</h3><p>参考文章：<br><a href="http://font-spider.org/" target="_blank" rel="external">http://font-spider.org/</a><br><a href="http://www.gulpjs.com.cn/docs/api/" target="_blank" rel="external">http://www.gulpjs.com.cn/docs/api/</a><br><a href="http://www.ydcss.com/archives/18" target="_blank" rel="external">http://www.ydcss.com/archives/18</a><br><a href="https://segmentfault.com/a/1190000000372547" target="_blank" rel="external">https://segmentfault.com/a/1190000000372547</a></p>
+
           
         
       
@@ -506,8 +611,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/04/16/hello-world/" itemprop="url">
-                  Hello World
+                <a class="post-title-link" href="/2016/02/26/typeOf&instanceOf/" itemprop="url">
+                  typeOf、instanceOf、valueOf区别
                 </a>
               
             
@@ -520,11 +625,30 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-16T16:08:16+08:00" content="2016-04-16">
-              2016-04-16
+            <time itemprop="dateCreated" datetime="2016-02-26T12:00:00+08:00" content="2016-02-26">
+              2016-02-26
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -550,15 +674,497 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+            <h3 id="一、typeOf"><a href="#一、typeOf" class="headerlink" title="一、typeOf"></a>一、typeOf</h3><p>typeof操作符返回一个字符串,表示未经求值的操作数(unevaluated operand)的类型</p>
+<p>Js中对象一共有六种主要类型</p>
+<ul>
+<li><h5 id="number"><a href="#number" class="headerlink" title="number"></a>number</h5></li>
+<li><h5 id="null"><a href="#null" class="headerlink" title="null"></a>null</h5></li>
+<li><h5 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h5></li>
+<li><h5 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h5></li>
+<li><h5 id="string"><a href="#string" class="headerlink" title="string"></a>string</h5></li>
+<li><h5 id="object"><a href="#object" class="headerlink" title="object"></a>object</h5></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>var a=</th>
+<th>typeOf(a);</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> undefined</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td> null</td>
+<td>object</td>
+</tr>
+<tr>
+<td> { } 或 [ ] 或 new Date()</td>
+<td>object</td>
+</tr>
+<tr>
+<td>  123</td>
+<td>number</td>
+</tr>
+<tr>
+<td> ‘123’ 或 ‘’</td>
+<td>string</td>
+</tr>
+<tr>
+<td> function(){}</td>
+<td>function</td>
+</tr>
+<tr>
+<td>true 或 false</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>  /^[0-9]$/ 或 new RegExp()</td>
+<td>object //firefox5+ 符合ECMA 5.1</td>
+</tr>
+</tbody>
+</table>
+<p>可以看到typeOf并不能判断出Array和null以及object之间的区别</p>
+<p>注：null和{}的typeOf结果相同是因为不同的对象在底层都表示为二进制对象，js中前三位都为0的话会被判断为object类型<br>,null的二进制表示全是0，所以执行typeOf会返回object</p>
+<h4 id="扩展"><a href="#扩展" class="headerlink" title="扩展:"></a>扩展:</h4><p>要想判断是不是数组的话，可以<br>// 使用Array.isArray或者Object.prototype.toString.call方法可以从基本的对象中区分出数组类型</p>
+<h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p>e.g Array.isArray<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a=[]; Array.isArray(a); //true;</span><br><span class="line">var a=&#123;&#125;; Array.isArray(a); //false;</span><br><span class="line">var a=function()&#123;&#125;; Array.isArray(a); //false;</span><br></pre></td></tr></table></figure></p>
+<p>如果不存在Array.isArray(),需要自定义方法(实际上就是用object.prototype.toString.call)，ie9+才支持Array.isArray()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if(!Array.isArray)&#123;</span><br><span class="line">Array.isArray=function(arg)&#123;</span><br><span class="line">return Object.prototype.toString.call(arg)===&apos;[object Array]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="方法二、"><a href="#方法二、" class="headerlink" title="方法二、"></a>方法二、</h5><p>更准确地判断出对象的类型（不止可以用来判断数组）<br>e.g object.prototype.toString.call<br>返回的结果是’[object result]’这样的形式，使用slice截取指定区域的字符串就可以得到对象的类型</p>
+<table>
+<thead>
+<tr>
+<th>var a=</th>
+<th>object.prototype.toString.call(a).slice(8,-1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> []</td>
+<td>Array</td>
+</tr>
+<tr>
+<td> {}</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>function(){}</td>
+<td>Function</td>
+</tr>
+<tr>
+<td>null</td>
+<td>Null</td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>Undefined</td>
+</tr>
+<tr>
+<td>true 或 false</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>new Date()</td>
+<td>Date</td>
+</tr>
+<tr>
+<td>new Error()</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>new RegExp()</td>
+<td>RegExp</td>
+</tr>
+<tr>
+<td>/^[0-9]$/</td>
+<td>RegExp</td>
+</tr>
+</tbody>
+</table>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044668-fd0c2e979a9a8927.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<h3 id="二、instanceOf"><a href="#二、instanceOf" class="headerlink" title="二、instanceOf"></a>二、instanceOf</h3><p>MDN中的原话描述是这样的：</p>
+<blockquote>
+<p>instanceof运算符可以用来判断某个构造函数的prototype属性所指向的對象是否存在于另外一个要检测对象的原型链上，<br>检测constructor.prototype 是否存在于参数 object 的原型链上</p>
+</blockquote>
+<p>a instanceOf b 其实就是检测a是不是b的一个实例对象或者是b的子类的一个实例对象</p>
+<p>判断一个实例是否属于某种类型</p>
+<p>还可以在继承关系中判断一个实例是否属于它的父类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 判断 foo 是否是 Foo 类的实例 , 并且是否是其父类型的实例</span><br><span class="line">function Parent()&#123;&#125;</span><br><span class="line">function Child()&#123;&#125;</span><br><span class="line">Child.prototype = new Parent();//原型继承</span><br><span class="line"></span><br><span class="line">var child = new Child();</span><br><span class="line">console.log(child  instanceof Child)//true</span><br><span class="line">console.log(child  instanceof Parent)//true</span><br></pre></td></tr></table></figure></p>
+<p>这里就涉及到了原型链的相关知识了<br>暂挂起不表，下一篇文章详细写这个</p>
+<h3 id="三、valueOf"><a href="#三、valueOf" class="headerlink" title="三、valueOf"></a>三、valueOf</h3><ul>
+<li><p>booleanObject.valueOf()可返回 Boolean 对象的原始值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var boo=new Boolean(false);</span><br><span class="line">console.log(boo.valueOf()) //false</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>stringObject.valueOf()可返回 String 对象的原始值,原始值是由从 String 对象下来的所有对象继承的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var boo=new String(&apos;test&apos;);</span><br><span class="line">console.log(boo.valueOf()) //test</span><br><span class="line">var boo=&apos;test&apos;;</span><br><span class="line">console.log(boo.valueOf()) //test</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>arrayObject.valueOf()返回 Array 对象的原始值,该原始值由 Array 对象派生的所有对象继承。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var boo=[2,3];</span><br><span class="line">console.log(boo.valueOf()) //[2,3]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>NumberObject.valueOf()可以字符串返回数字，字符串的输出通常等于该数字。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var boo=456;</span><br><span class="line">console.log(boo.valueOf()) // 456</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DateObject.valueOf() 方法返回 Date 对象的原始值。date 的毫秒表示。返回值和方法 Date.getTime 返回的值相等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var boo=new Date();</span><br><span class="line">console.log(boo.valueOf()) //1460605379960</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>object.valueOf()</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var boo=&#123;&#125;;</span><br><span class="line">console.log(boo.valueOf())  //Object &#123;&#125;</span><br><span class="line"></span><br><span class="line">var boo=&#123;&apos;data&apos;:2&#125;;</span><br><span class="line">console.log(boo.valueOf()) //Object &#123;data: 2&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考资料:<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof</a></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/02/10/flex/" itemprop="url">
+                  flex学习笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-10T12:00:00+08:00" content="2016-02-10">
+              2016-02-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="容器的属性"><a href="#容器的属性" class="headerlink" title="容器的属性"></a>容器的属性</h2><p>1.flex-direction<br>2.flex-wrap<br>3.flex-flow<br>4.justify-content<br>5.align-items<br>6.align-content</p>
+<h4 id="一、flex-direction属性决定主轴的方向（即项目的排列方向）。"><a href="#一、flex-direction属性决定主轴的方向（即项目的排列方向）。" class="headerlink" title="一、flex-direction属性决定主轴的方向（即项目的排列方向）。"></a>一、flex-direction属性决定主轴的方向（即项目的排列方向）。</h4><blockquote>
+<p>flex-direction: row | row-reverse | column | column-reverse;</p>
+</blockquote>
+<h4 id="二、flex-wrap属性定义，如果一条轴线排不下，如何换行。"><a href="#二、flex-wrap属性定义，如果一条轴线排不下，如何换行。" class="headerlink" title="二、flex-wrap属性定义，如果一条轴线排不下，如何换行。"></a>二、flex-wrap属性定义，如果一条轴线排不下，如何换行。</h4><blockquote>
+<p>flex-wrap: nowrap | wrap | wrap-reverse;</p>
+</blockquote>
+<h4 id="三、flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为"><a href="#三、flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为" class="headerlink" title="三、flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为"></a>三、flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为</h4><blockquote>
+<p>row nowrap。</p>
+</blockquote>
+<h4 id="四、justify-content属性定义了项目在主轴上的对齐方式，"><a href="#四、justify-content属性定义了项目在主轴上的对齐方式，" class="headerlink" title="四、justify-content属性定义了项目在主轴上的对齐方式，"></a>四、justify-content属性定义了项目在主轴上的对齐方式，</h4><p>可以理解为横轴。</p>
+<blockquote>
+<p>justify-content: flex-start | flex-end | center | space-between | space-around;</p>
+</blockquote>
+<ul>
+<li>flex-start（默认值）：左对齐</li>
+<li>flex-end：右对齐</li>
+<li>center： 居中</li>
+<li>space-between：两端对齐，项目之间的间隔都相等。</li>
+<li>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</li>
+</ul>
+<h4 id="五、align-items属性定义项目在交叉轴上如何对齐，可以理解为竖轴"><a href="#五、align-items属性定义项目在交叉轴上如何对齐，可以理解为竖轴" class="headerlink" title="五、align-items属性定义项目在交叉轴上如何对齐，可以理解为竖轴"></a>五、align-items属性定义项目在交叉轴上如何对齐，可以理解为竖轴</h4><blockquote>
+<p>align-items: flex-start | flex-end | center | baseline | stretch;</p>
+</blockquote>
+<ul>
+<li><p>flex-start：交叉轴的起点对齐。</p>
+</li>
+<li><p>flex-end：交叉轴的终点对齐。</p>
+</li>
+<li><p>center：交叉轴的中点对齐。</p>
+</li>
+<li><p>baseline: 项目的第一行文字的基线对齐。</p>
+</li>
+<li><p>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</p>
+</li>
+</ul>
+<h4 id="六、align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。"><a href="#六、align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。" class="headerlink" title="六、align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。"></a>六、align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</h4><blockquote>
+<p>align-content: flex-start | flex-end | center | space-between | stretch | space-around;</p>
+</blockquote>
+<ul>
+<li><p>flex-start：与交叉轴的起点对齐。</p>
+</li>
+<li><p>flex-end：与交叉轴的终点对齐。</p>
+</li>
+<li><p>center：与交叉轴的中点对齐。</p>
+</li>
+<li><p>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</p>
+</li>
+<li><p>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</p>
+</li>
+<li><p>stretch（默认值）：轴线占满整个交叉轴。</p>
+</li>
+</ul>
+<hr>
+<h2 id="项目的属性"><a href="#项目的属性" class="headerlink" title="项目的属性"></a>项目的属性</h2><ul>
+<li><h5 id="order-属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。"><a href="#order-属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。" class="headerlink" title="order:属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。"></a>order:属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</h5></li>
+</ul>
+<blockquote>
+<p>order: <integer>;</integer></p>
+</blockquote>
+<ul>
+<li><h5 id="flex-grow-属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。"><a href="#flex-grow-属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。" class="headerlink" title="flex-grow:属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。"></a>flex-grow:属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。</h5></li>
+</ul>
+<blockquote>
+<p>flex-grow: <number>; /<em> default 0 </em>/</number></p>
+</blockquote>
+<ul>
+<li><h5 id="flex-shrink-属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。"><a href="#flex-shrink-属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。" class="headerlink" title="flex-shrink:属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。"></a>flex-shrink:属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</h5></li>
+</ul>
+<blockquote>
+<p>flex-shrink: <number>; /<em> default 1 </em>/</number></p>
+</blockquote>
+<ul>
+<li><h5 id="flex-basis-属性定义了在分配多余空间之前，项目占据的主轴空间（main-size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。"><a href="#flex-basis-属性定义了在分配多余空间之前，项目占据的主轴空间（main-size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。" class="headerlink" title="flex-basis:属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。"></a>flex-basis:属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</h5></li>
+</ul>
+<blockquote>
+<p>flex-basis: <length> | auto; /<em> default auto </em>/</length></p>
+</blockquote>
+<ul>
+<li><h5 id="flex-属性是flex-grow-flex-shrink-和-flex-basis的简写，默认值为0-1-auto。后两个属性可选。建议优先使用这个属性"><a href="#flex-属性是flex-grow-flex-shrink-和-flex-basis的简写，默认值为0-1-auto。后两个属性可选。建议优先使用这个属性" class="headerlink" title="flex:属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。建议优先使用这个属性"></a>flex:属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。建议优先使用这个属性</h5></li>
+</ul>
+<blockquote>
+<p>flex: none | [ &lt;’flex-grow’&gt; &lt;’flex-shrink’&gt;? || &lt;’flex-basis’&gt; ]</p>
+</blockquote>
+<ul>
+<li><h5 id="align-self-属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。"><a href="#align-self-属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。" class="headerlink" title="align-self:属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。"></a>align-self:属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</h5></li>
+</ul>
+<blockquote>
+<p>align-self: auto | flex-start | flex-end | center | baseline | stretch;</p>
+</blockquote>
+<h3 id="最后flex学习强烈推荐阮一峰老师的教程，把这篇文章举到的例子，骰子的布局好好想一遍，实现一遍，基本flex就掌握了"><a href="#最后flex学习强烈推荐阮一峰老师的教程，把这篇文章举到的例子，骰子的布局好好想一遍，实现一遍，基本flex就掌握了" class="headerlink" title="最后flex学习强烈推荐阮一峰老师的教程，把这篇文章举到的例子，骰子的布局好好想一遍，实现一遍，基本flex就掌握了"></a>最后flex学习强烈推荐阮一峰老师的教程，把这篇文章举到的例子，骰子的布局好好想一遍，实现一遍，基本flex就掌握了</h3><blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a><br>深入浅出，简单明了</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/10/30/git/" itemprop="url">
+                  我自己常用到的git命令
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-10-30T16:54:22+08:00" content="2015-10-30">
+              2015-10-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>git stash 暂存所有未commit内容</p>
+<p>git stash -p暂存，但可以选择暂存哪部分文件的修改</p>
+<p>git stash list查看暂存栈</p>
+<p>git stash pop 恢复工作现场并删除stash内容</p>
+<p>git stash apply恢复工作现场但不删除stash内容，stash之前已add的文件apply之后需重新add</p>
+<p>git stash drop stash@{0}手动删除stash栈</p>
+<p>git stash apply stash@{0}</p>
+<p>git stash apply stash@{1}</p>
+<hr>
+<p>git branch查看本地分支</p>
+<p>git remote -v查看远程库</p>
+<p>git branch -a查看远程分支</p>
+<p>git ls-remote (remote)显式地获得远程引用的完整列表</p>
+<hr>
+<p>git checkout master切换到master分支</p>
+<p>git checkout -b develop master在master基础上创建develop分支</p>
+<p>git checkout -b dev origin/dev创建远程origin的dev分支到本地</p>
+<p>git checkout -b dev origin/develop创建远程分支develop到本地分支dev</p>
+<p>git merge –no-ff develop对develop分支进行合并，当前是master即并入master</p>
+<p>(–no-ff 即不执行快速 参考<a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2012/07/git.html</a>)</p>
+<hr>
+<p>git push origin dev推送本地的 dev分支，将其作为远程仓库的 dev分支</p>
+<p>git push origin dev:dev推送本地的 dev分支，将其作为远程仓库的 dev分支</p>
+<p>git push origin dev:devremote  推送本地的dev分支 到远程仓库的devremote分支</p>
+<p>git push origin dev:dev  推送本地新建的dev分支到远程仓库(此时服务器没有这个分支)</p>
+<hr>
+<p>git branch -d develop删除本地分支develop</p>
+<p>git push origin :develop  删除远程分支</p>
+<hr>
+<p>git branch –set-upstream dev origin/develop 建立本地分支dev与远程分支develop的关联</p>
+<p>git pull origin next:master 取回origin主机的next分支，与本地master分支合并</p>
+<hr>
+<p>git cherry-pick ‘commit-id’现在在master分支下，想把刚提交到dev分支的commit也提交过来</p>
+<p>git commit –amend  可以把这次修改并入上一次commit并修改commit信息</p>
 
           
         
@@ -628,7 +1234,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -636,7 +1242,7 @@
           
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -645,7 +1251,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
