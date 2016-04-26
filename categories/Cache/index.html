@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Git," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -80,31 +80,15 @@
 
 
 
-<meta name="description" content="git stash 暂存所有未commit内容
-git stash -p暂存，但可以选择暂存哪部分文件的修改
-git stash list查看暂存栈
-git stash pop 恢复工作现场并删除stash内容
-git stash apply恢复工作现场但不删除stash内容，stash之前已add的文件apply之后需重新add
-git stash drop stash@{0}手动删除stash">
-<meta property="og:type" content="article">
-<meta property="og:title" content="我自己常用到的git命令">
-<meta property="og:url" content="http://yoursite.com/2015/10/30/git/index.html">
+<meta name="description" content="嗯，一枚喜欢玩摄影的大三前端猿">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Point Halo">
+<meta property="og:url" content="http://yoursite.com/categories/Cache/index.html">
 <meta property="og:site_name" content="Point Halo">
-<meta property="og:description" content="git stash 暂存所有未commit内容
-git stash -p暂存，但可以选择暂存哪部分文件的修改
-git stash list查看暂存栈
-git stash pop 恢复工作现场并删除stash内容
-git stash apply恢复工作现场但不删除stash内容，stash之前已add的文件apply之后需重新add
-git stash drop stash@{0}手动删除stash">
-<meta property="og:updated_time" content="2016-04-18T13:47:32.854Z">
+<meta property="og:description" content="嗯，一枚喜欢玩摄影的大三前端猿">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我自己常用到的git命令">
-<meta name="twitter:description" content="git stash 暂存所有未commit内容
-git stash -p暂存，但可以选择暂存哪部分文件的修改
-git stash list查看暂存栈
-git stash pop 恢复工作现场并删除stash内容
-git stash apply恢复工作现场但不删除stash内容，stash之前已add的文件apply之后需重新add
-git stash drop stash@{0}手动删除stash">
+<meta name="twitter:title" content="Point Halo">
+<meta name="twitter:description" content="嗯，一枚喜欢玩摄影的大三前端猿">
 
 
 
@@ -122,7 +106,7 @@ git stash drop stash@{0}手动删除stash">
   };
 </script>
 
-  <title> 我自己常用到的git命令 | Point Halo </title>
+  <title> 分类: Cache | Point Halo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -143,7 +127,7 @@ git stash drop stash@{0}手动删除stash">
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -231,172 +215,47 @@ git stash drop stash@{0}手动删除stash">
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                我自己常用到的git命令
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-30T16:54:22+08:00" content="2015-10-30">
-              2015-10-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>git stash 暂存所有未commit内容</p>
-<p>git stash -p暂存，但可以选择暂存哪部分文件的修改</p>
-<p>git stash list查看暂存栈</p>
-<p>git stash pop 恢复工作现场并删除stash内容</p>
-<p>git stash apply恢复工作现场但不删除stash内容，stash之前已add的文件apply之后需重新add</p>
-<p>git stash drop stash@{0}手动删除stash栈</p>
-<p>git stash apply stash@{0}</p>
-<p>git stash apply stash@{1}</p>
-<hr>
-<p>git branch查看本地分支</p>
-<p>git remote -v查看远程库</p>
-<p>git branch -a查看远程分支</p>
-<p>git ls-remote (remote)显式地获得远程引用的完整列表</p>
-<hr>
-<p>git checkout master切换到master分支</p>
-<p>git checkout -b develop master在master基础上创建develop分支</p>
-<p>git checkout -b dev origin/dev创建远程origin的dev分支到本地</p>
-<p>git checkout -b dev origin/develop创建远程分支develop到本地分支dev</p>
-<p>git merge –no-ff develop对develop分支进行合并，当前是master即并入master</p>
-<p>(–no-ff 即不执行快速 参考<a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2012/07/git.html</a>)</p>
-<hr>
-<p>git push origin dev推送本地的 dev分支，将其作为远程仓库的 dev分支</p>
-<p>git push origin dev:dev推送本地的 dev分支，将其作为远程仓库的 dev分支</p>
-<p>git push origin dev:devremote  推送本地的dev分支 到远程仓库的devremote分支</p>
-<p>git push origin dev:dev  推送本地新建的dev分支到远程仓库(此时服务器没有这个分支)</p>
-<hr>
-<p>git branch -d develop删除本地分支develop</p>
-<p>git push origin :develop  删除远程分支</p>
-<hr>
-<p>git branch –set-upstream dev origin/develop 建立本地分支dev与远程分支develop的关联</p>
-<p>git pull origin next:master 取回origin主机的next分支，与本地master分支合并</p>
-<hr>
-<p>git cherry-pick ‘commit-id’现在在master分支下，想把刚提交到dev分支的commit也提交过来</p>
-<p>git commit –amend  可以把这次修改并入上一次commit并修改commit信息</p>
-
-      
-    </div>
-    
-    <div>
-      
-        
-      
+  <section id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        Cache
+        <small>分类</small>
+      </h2>
     </div>
 
-    <div>
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-      
-    </div>
+            <a class="post-title-link" href="/2016/04/20/DnsCache/" itemprop="url">
+              
+                <span itemprop="name">Dns缓存清理</span>
+              
+            </a>
+        
+      </h1>
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Git/" rel="tag">#Git</a>
-          
-        </div>
-      
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-04-20T13:23:51+08:00"
+              content="2016-04-20" >
+          04-20
+        </time>
+      </div>
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/02/10/flex/" rel="prev" title="flex学习笔记">
-                flex学习笔记 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+
 
 
           </div>
@@ -404,10 +263,6 @@ git stash drop stash@{0}手动删除stash">
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -427,17 +282,8 @@ git stash drop stash@{0}手动删除stash">
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://7xt95a.com2.z0.glb.clouddn.com/image/avatar.jpg"
@@ -507,17 +353,6 @@ git stash drop stash@{0}手动删除stash">
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -614,10 +449,6 @@ git stash drop stash@{0}手动删除stash">
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
