@@ -112,7 +112,7 @@ i
 
 i
 执行对大">
-<meta property="og:updated_time" content="2016-04-26T15:37:08.943Z">
+<meta property="og:updated_time" content="2016-04-27T11:32:13.076Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字符串检索相关的操作总结">
 <meta name="twitter:description" content="前言扩展： 正则在javascirpt里面可以用两种方法创建一个正则对象
@@ -360,9 +360,6 @@ i
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>注：正则的快速学习教程推荐</p>
-</blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg= <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'^abc&#123;1&#125;[0-9]*$'</span>,<span class="string">'i'</span>);   正则表达式运行时编译</span><br><span class="line"><span class="keyword">var</span> reg= <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'^abc&#123;1&#125;[0-9]*$'</span>);</span><br><span class="line"><span class="keyword">var</span> reg= <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/ab+c/</span>,<span class="string">'i'</span>);  直接使用正则表达式构造对象</span><br><span class="line"><span class="keyword">var</span> reg= <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/ab+c/i</span>)</span><br></pre></td></tr></table></figure>
 <p>注：ECMA6之前，如果第一个参数是正则表达式而不是字符串的时候，第二个参数必须省略，否则会跑出TypeError （”当从其他正则表达式进行构造时不支持标志”）异常 到了ECMA6，不再抛出错误。那此时第二个参数有没有用呢？我们来试一试</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg= <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/^abc&#123;1&#125;[0-9]*$/</span>,<span class="string">'i'</span>); reg.test(<span class="string">'Abc5'</span>);</span><br><span class="line"><span class="comment">//true 实际等同下一条</span></span><br><span class="line"><span class="keyword">var</span> reg= <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/^abc&#123;1&#125;[0-9]*$/i</span>); reg.test(<span class="string">'Abc5'</span>);</span><br><span class="line"><span class="comment">//true</span></span><br><span class="line"><span class="keyword">var</span> reg= <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/^abc&#123;1&#125;[0-9]*$/</span>); reg.test(<span class="string">'Abc5'</span>);</span><br><span class="line"><span class="comment">//false</span></span><br></pre></td></tr></table></figure>
@@ -558,7 +555,7 @@ i
                src="http://7xt95a.com2.z0.glb.clouddn.com/image/avatar.jpg"
                alt="Point Halo" />
           <p class="site-author-name" itemprop="name">Point Halo</p>
-          <p class="site-description motion-element" itemprop="description">嗯，一枚喜欢玩摄影的大三前端猿</p>
+          <p class="site-description motion-element" itemprop="description">一枚喜欢玩摄影的大三前端猿,请多多指教</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
